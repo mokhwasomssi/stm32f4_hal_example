@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -66,6 +67,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+	uint32_t duty_cycle[5] = {99, 199, 299, 399, 0};
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -86,8 +89,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+
+
 
   /* USER CODE END 2 */
 
@@ -98,6 +104,10 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	  HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, duty_cycle, 5);
+	  HAL_Delay(100);
+
   }
   /* USER CODE END 3 */
 }
